@@ -1,0 +1,23 @@
+﻿@using Proyecto.ModelView
+@using Proyecto.BaseDatos
+@model RealizarDonacionMV
+@{
+    ViewBag.Title = "RealizarDonacion";
+    Layout = "~/Views/Shared/propuestasLayout.cshtml";
+}
+@Scripts.Render("~/bundles/propuesta")
+
+<h2>Realizar Donacion</h2>
+
+@switch (@Model.Propuesta.TipoDonacion)
+{
+    case 1:
+        @Html.Partial("DonacionMonetaria", Model)
+        break;
+    case 2:
+        @Html.Partial("DonacionInsumo", Model)
+        break;
+    case 3:
+        @Html.Partial("DonacionHoraTrabajo", Model)
+        break;
+}

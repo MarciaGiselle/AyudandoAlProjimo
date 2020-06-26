@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Listar";
+    Layout = "~/Views/Shared/propuestasLayout.cshtml";
+}
+<h2>Mis Donaciones</h2>
+<input type="hidden" name="miReferecia" id="miReferencia" value=@ViewBag.ID />
+<table id="tabla" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Tipo de Donacion</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Total Recaudado</th>
+            <th scope="col">Mi Donacion</th>
+            <th scope="col">Ir a propuesta</th>
+        </tr>
+    </thead>
+    <tbody id="pintame">
+        <tr>
+            <td>Si tiene Donaciones , se veran Aqui</td>
+        </tr>
+
+    </tbody>
+</table>
+
+
+

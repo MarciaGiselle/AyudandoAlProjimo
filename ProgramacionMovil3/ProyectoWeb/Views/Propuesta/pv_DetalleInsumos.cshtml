@@ -1,0 +1,65 @@
+﻿@model Proyecto.BaseDatos.Propuestas
+
+@{
+    ViewBag.Title = "DetalleHorasDeTrabajo";
+    var contador = 0;
+    var contadorDos = 0;
+    decimal acumulador = 0;
+}
+
+<div class="card pl-3 py-2 mb-3">
+    <h5 class="text-blue"><i class="fa fa-heart pt-2 mr-2"></i>Detalles de la donación | <b>Insumos que se necesitan </b></h5>
+</div>
+<div class="row mx-0 justify-content-lg-around">
+    @foreach (var a in Model.PropuestasDonacionesInsumos)
+    {
+        contador++;
+
+        foreach (var i in a.DonacionesInsumos)
+        {
+
+            if (a.IdPropuestaDonacionInsumo.Equals(i.IdPropuestaDonacionInsumo))
+            {
+
+                acumulador += i.Cantidad;
+
+            }
+
+            contadorDos++;
+        }
+
+        <div class="card rounded mb-2 size-22r">
+            <div class="px-3 py-2 mt-3">
+                <h5 class="text-success"> Insumo <i class="fa fa-hashtag px-1"></i>@contador</h5>
+                <hr class="bg-danger" />
+            </div>
+
+            <div class="card-body px-4 pt-2 pb-1 mb-0 text-blue d-flex justify-content-around">
+                <div class="row text-blue d-flex justify-content-around">
+                    <div class="col-md-12 text-center mx-auto mb-1">
+                        <div class="rounded-divs @ViewBag.Estilo ">
+                            <h2 class="text-blue "><i class="fa fa-cube pr-2"></i><b>@a.Nombre </b></h2>
+                        </div>
+                        <br />
+                        @if (a.Cantidad < acumulador)
+                        {
+                            <label class="text-primary">Requerido  <b>@a.Cantidad</b> | Donados  <b>@acumulador</b></label>
+                        }
+                        else
+                        {
+                            <label>Requerido  <b>@a.Cantidad</b> | Donados  <b>@acumulador</b></label>
+
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+       acumulador = 0;
+
+    }
+
+</div>
+</div>
+

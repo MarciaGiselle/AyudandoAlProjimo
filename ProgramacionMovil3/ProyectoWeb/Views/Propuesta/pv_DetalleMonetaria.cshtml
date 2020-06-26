@@ -1,0 +1,81 @@
+﻿@model Proyecto.BaseDatos.Propuestas
+
+@{
+    ViewBag.Title = "DetalleMonetaria";
+    var contador = 0;
+    decimal acumulador = 0;
+}
+
+
+@foreach (var a in Model.PropuestasDonacionesMonetarias)
+{
+    foreach (var p in a.DonacionesMonetarias)
+    {
+        if (p.Dinero > 0)
+        {
+            acumulador += p.Dinero;
+            contador++;
+        }
+
+    }
+    <div class="card-group">
+        <div class="card rounded mb-2 col-md-7 mr-4">
+            <div class="pl-3 py-2">
+                <h5 class="text-primary"><i class="fa fa-heart pt-2 mr-2"></i>Detalles de la donación </h5>
+                <hr />
+            </div>
+            <div class="card-body px-5 pt-2 pb-3 mb-0 ">
+
+                <div class="row text-blue d-flex justify-content-around">
+
+                    <div class="col-md-12 text-center mx-auto mb-3">
+                        <h5>Número de CBU </h5>
+                        <div class="rounded-divs @ViewBag.Estilo ">
+                            <h2 class="text-blue "><i class="fa fa-hashtag pr-3"></i><b>@a.CBU</b></h2>
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="col-md-12 text-center mx-auto">
+                        <h5>Dinero requerido</h5>
+                        <div class="rounded-divs @ViewBag.Estilo ">
+                            <h2 class="text-blue"><i class="fa fa-usd pr-3"></i><b>@a.Dinero</b></h2>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="card rounded  mb-2 col-md-5 bg-blue">
+            <div class="pl-3 py-2">
+                <h5><i class="fa fa-heart pt-2 mr-2"></i>Donaciones obtenidas</h5>
+                <hr />
+            </div>
+            <div class="card-body px-5 pt-2 pb-3 mb-0 ">
+                <div class="row d-flex justify-content-around">
+
+                    <div class="col-md-12 text-center mx-auto mb-3">
+                        <h5>Cantidad de Donaciones recibidas </h5>
+                        <div class="rounded-divs @ViewBag.Estilo">
+                            <h2 class="text-blue "><i class="fa fa-hashtag pr-3"></i><b>@contador</b></h2>
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="col-md-12 text-center mx-auto">
+                        <h5>Total Recaudado</h5>
+                        <div class="rounded-divs @ViewBag.Estilo">
+                            <h2 class="text-blue"><i class="fa fa-usd pr-3"></i><b>@acumulador</b></h2>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+    </div>

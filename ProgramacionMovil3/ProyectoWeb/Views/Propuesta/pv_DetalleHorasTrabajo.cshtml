@@ -1,0 +1,86 @@
+﻿@model Proyecto.BaseDatos.Propuestas
+
+@{
+    ViewBag.Title = "DetalleHorasDeTrabajo";
+    var contador = 0;
+    decimal acumulador = 0;
+
+}
+
+
+@foreach (var a in Model.PropuestasDonacionesHorasTrabajo)
+{
+    foreach (var p in a.DonacionesHorasTrabajo)
+    {
+        if (p.Cantidad > 0)
+        {
+            acumulador += p.Cantidad;
+            contador++;
+        }
+
+    }
+    <div class="card-group">
+        <div class="card rounded mb-2 col-md-7 mr-4">
+            <div class="pl-3 py-2">
+                <h5 class="text-warning"><i class="fa fa-heart pt-2 mr-2"></i>Detalles de la donación </h5>
+                <hr class="bg-warning" />
+            </div>
+            <div class="card-body px-4 pt-2 pb-3 mb-0 ">
+
+                <div class="row text-blue d-flex justify-content-around">
+
+                    <div class="col-md-12 text-center mx-auto mb-3">
+                        <h5>Profesión requerida </h5>
+                        <div class="rounded-divs @ViewBag.Estilo ">
+                            <h2 class="text-blue "><i class="fa fa-address-card pr-3"></i><b>@ViewBag.Profesion</b></h2>
+                        </div>
+                        <br />
+                    <hr/>
+                    </div>
+                    <br />
+                    <div class="col-md-12 text-center mx-auto">
+                        <h5>Cantidad de tiempo solicitado</h5>
+                        <div class="rounded-divs @ViewBag.Estilo ">
+                            <h2 class="text-blue"><i class="fa fa-clock-o pr-3"></i><b>@a.CantidadHoras</b> horas</h2>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="card rounded  mb-2 col-md-5 bg-orange">
+            <div class="pl-3 py-2">
+                <h5><i class="fa fa-heart pt-2 mr-2"></i>Donaciones obtenidas</h5>
+                <hr class="bg-light" />
+            </div>
+            <div class="card-body px-4 pt-2 pb-3 mb-0 ">
+                <div class="row d-flex justify-content-around">
+
+                    <div class="col-md-12 text-center mx-auto mb-3">
+                        <h5>Cantidad de Donaciones recibidas </h5>
+                        <div class="rounded-divs @ViewBag.Estilo">
+                            <h2 class="text-blue "><i class="fa fa-hashtag pr-3"></i><b>@contador</b></h2>
+                        </div>
+                        <br />
+                        <hr  />
+                    </div>
+                    <br />
+
+                    <br />
+                    <div class="col-md-12 text-center mx-auto">
+                        <h5>Total de horas acumuladas</h5>
+                        <div class="rounded-divs @ViewBag.Estilo">
+                            <h2 class="text-blue"><i class="fa fa-clock-o pr-3"></i><b>@acumulador</b></h2>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+    </div>

@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "Busqueda";
+    Layout = "~/Views/Shared/propuestasLayout.cshtml";
+}
+
+@model ProyectoWeb.ViewModel.BusquedaVM
+
+@{
+    ViewBag.Title = "Ayudando al prójimo";
+}
+@functions {
+    enum TiposDonacion
+    {
+        Monetario = 1,
+        Insumo = 2,
+        Hora = 3
+
+    }
+}
+
+
+<form class="needs-validation" novalidate>
+    <div class="card shadow mb-2">
+        <div class="card-header pl-5">
+            <h3 class="text-primary"><i class="fa fa-plus-circle pt-2 mr-2" aria-hidden="true"></i>Bienvenido a la plataforma de donaciones del Equipo Mobile</h3>
+        </div>
+        <div class="card-body p-5">
+            <h5 class="card-title">Propuestas Encontradas: @Model.ListaResultadoBusqueda.Count() </h5>
+            @if (@HttpContext.Current.Session["_usuarioLogueado"].ToString() == "False")
+            {
+                <h6 class="card-subtitle mb-2 text-muted">Para poder ver el detalle de las propuestas debe iniciar sesion.</h6>
+            }
+            <hr />
+            <div class="row mb-2">
+                @foreach (var prop in Model.ListaResultadoBusqueda)
+                {
+                    <div class="col-md-4">
+                        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                            <div class="col p-4 d-flex flex-column position-static">
+                                @if (prop.TipoDonacion == (int)(TiposDonacion.Monetario))
+                                {
+                                    <strong class="d-inline-block mb-2 text-primary">@TiposDonacion.Monetario</strong>
+                                }
+                                @if (prop.TipoDonacion == (int)(TiposDonacion.Insumo))
+                                {
+                                    <strong class="d-inline-block mb-2 text-primary">@TiposDonacion.Insumo</strong>
+                                }
+                                @if (prop.TipoDonacion == (int)(TiposDonacion.Hora))
+                                {
+                                    <strong class="d-inline-block mb-2 text-primary">@TiposDonacion.Hora</strong>
+                                }
+                                <h3 class="mb-0">@prop.Nombre</h3>
+                                <div class="mb-1 text-muted">@prop.FechaCreacion</div>
+                                <p class="card-text mb-auto">@prop.Descripcion</p>
+                                <a href="#" class="stretched-link">Ver Detalle</a>
+                            </div>
+                            <div class="col-auto d-none d-lg-block">
+                                <img class="img-thumbnail input-sm" src="@prop.Foto" alt="@prop.Nombre" />
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="card-footer py-4 ">
+            <a class="nav-link" href="@Url.Action("Index", "Home")">Inicio <span class="sr-only">(current)</span></a>
+
+        </div>
+    </div>
+</form>

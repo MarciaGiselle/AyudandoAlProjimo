@@ -1,0 +1,540 @@
+﻿ 
+
+/* Set padding to keep content from hitting the edges */
+.flechasOut::-webkit-inner-spin-button, .flechasOut::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.icon-input {
+    position: absolute;
+    margin-left: 0.5rem;
+    display: flex;
+    align-items: center;
+    color: #9c9c9c;
+    margin: auto 0.5rem;
+}
+body {
+    position: absolute;
+    width:100%;
+    height:100%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+
+#footer {
+    position: absolute;
+    right: 0;
+    left: 0;
+    width: 100%;
+    background: #D3D3D3;
+}
+
+
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 800px;
+    font-size: smaller;
+}
+
+
+.sectionPropuesta{
+    margin:0!important;
+    display: flex;
+    float: right;
+    width: 280px;
+}
+
+
+
+.alertDetalle {
+    margin:0;
+    width: 240px;
+    padding: 0.5rem;
+   
+}
+
+
+p#texto {
+    text-align: center;
+    color: white;
+}
+
+div#div_file {
+    position: relative;
+    margin: 50px;
+    padding: 10px;
+    width: 500px;
+    color: white;
+    background-color: #2499e3;
+    -webkit-border-radius: 5px;
+    -webkit-box-shadow: 0px 3px 0px #1a71a9;
+}
+
+input#btn_enviar {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+.img-size{
+    max-width:400px;
+    max-height:400px;
+}
+
+.objetfit-home > img {
+    width:100px;
+    height: 100px;
+    background-color: black;
+    border: 1px solid #c3c3c3;
+}
+.objetfitcover-home > img {
+    width: 200px;
+    height: 50%;
+    object-fit: cover;
+    border: 1px solid #5bc0de;
+}
+.objetfit > img {
+    width: 220px;
+    height: 220px;
+    background-color: black;
+    border: 2px solid #c3c3c3;
+}
+
+.objetfitcover > img {
+    width: 50%;
+    height: 50%;
+    object-fit: cover;
+    border: 2px solid #5bc0de;
+}
+
+.overflow{
+	height: 210px;
+	overflow: hidden;
+}
+
+.descripcion {
+	vertical-align: middle;
+	text-align: justify;
+    line-height:2em;
+}
+
+.text-blue {
+    color: #0550a0;
+}
+
+.cortar-texto {
+    vertical-align: middle;
+    text-align: left;
+    line-height: 2em;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+    .cortar-texto:hover {
+       
+        width: auto;
+        white-space: initial;
+        overflow: visible;
+        cursor: pointer;
+    }
+
+.m-negative{
+    margin-right:-1rem;
+}
+
+.fondo-monetaria {
+    color: #003c7c !important;
+    background-color: #d8e7ff;
+    border-color: #a6adfd;
+}
+
+.fondo-insumos {
+    color: #24670c !important;
+    background-color: #c2ffbc;
+    border-color: #197e2a4d;
+}
+
+.fondo-trabajo {
+    color: #5e4703 !important;
+    background-color: #f6e2a6;
+    border-color: #face47;
+}
+
+.fondo-general {
+    padding: initial;
+    margin: auto;
+    text-align: center;
+    background-color: white;
+    box-shadow: 1px 1px 5px #c0c0c0;
+}
+
+#centerContainer {
+    width: 80%;
+    margin: 0px auto;
+    min-height:66%;
+}
+
+hr {
+    margin-top: 0.8rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid #d9e8ff;
+}
+
+hr.white {
+    margin-top: 0.8rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid white;
+}
+
+
+.form-control-filtro {
+    position: absolute;
+    padding: 16px;
+    pointer-events: none;
+    
+}
+
+.form-filtro {
+    padding: 8px 10px 8px 40px !important;
+    margin-right: 20px;
+    width: 100%;
+    box-shadow: 1px 1px 5px #c0c0c0;
+}
+
+.flechasOut::-webkit-inner-spin-button, .flechasOut::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.buscador{
+    width:100%!important;
+    height:3rem;
+    padding: 2%;
+}
+.buscador:hover {
+    box-shadow: 0px 1px 8px;
+    border-radius: 0;
+    color: #428bca;
+}
+
+.fondo {
+    position: relative;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    /* border: 1px solid transparent; */
+    /* border-radius: 0.25rem; */
+}
+
+.circulo {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0px auto;
+    padding: 4%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    color:white;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+input:focus {
+
+    outline-offset: 0px!important;
+}
+
+user agent stylesheet
+:focus {
+    outline: -webkit-focus-ring-color auto 0px!important;
+}
+.circuloHome {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0px auto;
+    padding: 4%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    color: white;
+    background: #428bca;
+}
+
+.circuloHome:hover {
+    background: white;
+    box-shadow: 1px 1px 12px;
+    color: #428bca;
+}
+
+.circulo-danger {
+    background: #d9534f;
+   
+}
+.navbar:hover {
+    color: #428bca;
+    box-shadow: 1px 1px 15px #428bca;
+}
+
+
+.circulo-light {
+    background: #dcdcdaa1;
+}
+
+.card-header {
+    background: white;
+}
+
+.card {
+    color: #428bca;
+    box-shadow: #d9e8ff 3px 5px 10px;
+    border-radius: 1.5rem !important;
+}
+.form-control {
+    box-shadow: 1px 1px 5px #c0c0c0;
+}
+/**primary*/
+.circulo-primary {
+    background: #428bca;
+}
+
+/**success*/
+.circulo-success {
+    background: #5cb85c;
+}
+
+/**hovers*/
+.circulo:hover {
+    background: white;
+    box-shadow: 1px 1px 10px ;
+}
+.titulo:hover {
+    color: #428bca;
+    text-shadow: 1px 1px 10px #a8a89bc4;
+    font-weight: bold;
+}
+
+.circulo-success:hover {
+    color: #5cb85c;
+    border: 1px solid #5cb85c;
+}
+.circulo-danger:hover {
+    border: 1px solid #d9534f;
+    color: #d9534f;
+}
+
+.circulo-primary:hover {
+    border: 1px solid #428bca;
+    color: #428bca;
+}
+.rounded-divs {
+    border-radius: 5rem !important;
+}
+
+.bg-blue {
+   background: #003c7c;
+   color: white;
+}
+
+.bg-orange {
+    background: #e87500;
+    color: white;
+   
+}
+
+.size-22r {
+    width: 22rem;
+}
+
+.size-20r {
+    width: 20rem;
+}
+.error {
+    color: #d9534f;
+    font-size: 15px;
+    padding-top: 0.25rem;
+    padding-top: 0.4rem;
+}
+
+.boton {
+    padding: 0.5rem 1rem;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    border-radius: 5rem !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.boton-primary {
+    color: #fff;
+    background-color: #003c7c;
+    border-color: #003c7c;
+}
+
+.boton-primary {
+    color: #fff;
+    background-color: #003c7c;
+    border-color: #003c7c;
+}
+
+.boton-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.boton:hover {
+    background: white;
+    box-shadow: 1px 1px 10px;
+    font-weight: bold;
+}
+
+.boton-success:hover {
+    color: #5cb85c;
+    border: 1px solid #5cb85c;
+}
+
+.boton-danger:hover {
+    border: 1px solid #d9534f;
+    color: #d9534f;
+}
+
+.boton-primary:hover {
+    border: 1px solid #003c7c;
+    color: #003c7c;
+}
+
+.boton-secondary:hover {
+    border: 1px solid #6c757d;
+    color: #6c757d;
+}
+
+.not-found{
+    width:15%;
+    margin:1rem;
+}
+
+.form-row > .col, .form-row > [class*="col-"] {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+label {
+    color: #6c757d !important;
+    letter-spacing: 2px;
+}
+
+.card.formulario{
+    margin-top: -1.4rem!important;
+}
+
+.navbar.admin:hover {
+    color: #91968b;
+    box-shadow: 1px 1px 15px #91968b;
+}
+
+.nav-link.admin {
+    letter-spacing: 2px;
+    font-size: 20px;
+    color: #91968b !important;
+}
+
+.nav-link.admin:hover {
+    font-weight: bold;
+}
+
+.circuloHome.admin {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0px auto;
+    padding: 4%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    color: white;
+    background: #6e6974;
+}
+.navbar {
+   padding: 1.2rem 1rem;
+}
+
+.spacing {
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+
+.nav-link {
+    letter-spacing: 2px;
+    font-size: 18px;
+}
+
+.nav-link:hover {
+    font-weight: bold;
+}
+.navbar:hover {
+    color: #428bca;
+    box-shadow: 1px 1px 15px #428bca;
+}
+
+    .circuloHome.admin:hover {
+        background: white;
+        box-shadow: 1px 1px 12px;
+        color: #6e6974;
+    }
+
+.bg-outline-secondary:hover {
+    background-color: grey;
+    border-color: dimgrey;
+}
+
+.bg-outline-secondary {
+    border-color: slategrey;
+    background-color: darkgrey;
+}
+
+.card-header {
+    padding: 2.75rem 1.25rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.sticky-top {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 4;
+}

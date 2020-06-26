@@ -1,0 +1,73 @@
+﻿@using Proyecto.ModelView
+@using Proyecto.BaseDatos
+@model RealizarDonacionMV
+@{
+
+    ViewBag.Title = "Donacion Monetaria";
+    var tipo = ViewBag.tipo;
+    var suma = 0;
+    var i = 0;
+}
+
+<div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6">
+        <div class="row">
+            <div class="col-lg-12 mb-2">
+                <div class="card border-info">
+                    <div class="card-body">
+                        <h4>Profesion: @Model.Propuesta.PropuestasDonacionesHorasTrabajo.First().Profesion</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-2">
+                <div class="card border-primary">
+                    <div class="card-body">
+                        <h5>Requerimos: @Model.Propuesta.PropuestasDonacionesHorasTrabajo.First().CantidadHoras</h5>
+                        @foreach (DonacionesHorasTrabajo d in Model.Propuesta.PropuestasDonacionesHorasTrabajo.First().DonacionesHorasTrabajo)
+                        {
+                            suma += d.Cantidad;
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card border-danger">
+                    <div class="card-body">
+                        <h5>Nos Falta : @(Model.Propuesta.PropuestasDonacionesHorasTrabajo.First().CantidadHoras - suma)</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-body">
+                @using (Html.BeginForm("Donar", "Donacion", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                {
+                    @Html.HiddenFor(m => m.Propuesta.IdPropuesta, new { @Value = Model.Propuesta.IdPropuesta })
+                    @Html.HiddenFor(m => m.Propuesta.TipoDonacion, new { @Value = Model.Propuesta.TipoDonacion })
+                    @Html.HiddenFor(m => m.DonacionHoraTrabajo.IdPropuestaDonacionHorasTrabajo, new { @Value = Model.Propuesta.PropuestasDonacionesHorasTrabajo.First().IdPropuestaDonacionHorasTrabajo })
+                    @Html.HiddenFor(m => m.DonacionHoraTrabajo.IdUsuario, new { @Value = ViewBag.ID})
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        @*@Html.HiddenFor(m => m.Propuesta.PropuestasDonacionesHorasTrabajo.First().DonacionesHorasTrabajo.First().IdPropuestaDonacionHorasTrabajo, new { @Value = "2" })
+                             @Html.HiddenFor(m => m.Propuesta.PropuestasDonacionesHorasTrabajo.First().DonacionesHorasTrabajo.First().IdUsuario, new { @Value = "" });
+                         @Html.TextBoxFor(m => m.Propuesta.PropuestasDonacionesHorasTrabajo.First().DonacionesHorasTrabajo.First().Cantidad, new { id = i, @disabled = "", @Value = "" })*@
+                        @Html.Label("Cantidad de horas:", new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.DonacionHoraTrabajo.Cantidad, new { @Value = "", @type = "number" })
+                    </div>
+                    <p>@Html.ValidationMessageFor(m => m.DonacionHoraTrabajo.Cantidad, "", new { @class = "text-danger" })</p>
+
+                </div>
+                    <div>
+                        <button type="submit" class="btn btn-lg btn-primary btn-block" name="BTN" value="Hora">Confirmar Donacion</button>
+                    </div>
+                }
+
+
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3"></div>
+</div>

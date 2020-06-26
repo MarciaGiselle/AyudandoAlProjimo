@@ -1,0 +1,45 @@
+﻿@using Proyecto.BaseDatos
+@model List<Denuncias>
+@{
+    ViewBag.Title = "Denuncias";
+    Layout = "~/Views/Shared/propuestasLayout.cshtml";
+}
+
+
+
+<div class="container">
+    <h2>Denuncias</h2>
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>fecha</th>
+                    <th>Motivo</th>
+                    <th>propuesta</th>
+                    <th>Comentario</th>
+                    <th>Accion</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (Denuncias d in Model) {
+                
+                    <tr>
+                        <th scope="row">@d.FechaCreacion</th>
+                        <td>@d.MotivoDenuncia.Descripcion</td>
+                        <td><a href="/Propuesta/Detalle/@d.Propuestas.IdPropuesta">@d.Propuestas.Nombre</a></td>
+                        <td>@d.Comentarios</td>
+                        <form action="Denuncia/Desestimar" method="post">
+                            <td>
+                                @Html.Hidden("IdDenuncia", d.IdDenuncia)
+                                @Html.Hidden("IdPropuestas", d.IdPropuesta)
+                                <button formaction="Denuncia/Aceptar" class="boton boton-primary">Aceptar</button>
+                                <button type="submit" class="boton boton-secondary">Desestimar</button>
+                            </td>
+                            </form>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+</div>
+

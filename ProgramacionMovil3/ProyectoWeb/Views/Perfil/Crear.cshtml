@@ -1,0 +1,123 @@
+﻿@model Proyecto.BaseDatos.Usuarios
+
+@{
+    ViewBag.Title = "Crear";
+    Layout = "~/Views/Shared/anonimoLayout.cshtml";
+}
+
+
+        <script type="text/javascript" src="~/Scripts/CrearPerfil.js" ></script>
+    
+
+@Html.Partial("pv_Mensajes")
+@ViewBag.NoRegistrado
+
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card card-signin my-5">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Ingresar al sistema</h5>
+                        <form action="../Perfil/CrearPerfil" method="post" onsubmit="return validar();">
+
+                          
+
+                            <div class="form-horizontal">
+
+
+                                <div class="form-group">
+                                    <label for="Email">Email</label>
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control" id="Email" name="Email" required />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Password">Contraseña</label>
+                                    <div class="col-md-12">
+                                        <input type="password" class="form-control" id="Password" name="Password" required />
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <label for="Password2">Reingrese Contraseña</label>
+                                    <div class="col-md-12">
+                                        <input type="password" class="form-control" id="Password2" name="Password2" required />
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="FechaNacimiento">Ingrese su fecha de Nacimiento</label>
+                                    <span class="col-md-11">
+                                        <i class="fa fa-calendar pt-2" aria-hidden="true"></i>
+                                    </span>
+                                    <div class="col-md-12">
+
+
+                                        <input type="date" class="form-control" id="FechaNacimiento" name="FechaNacimiento" required />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-12">
+                                    <button class="btn btn-lg btn-primary btn-block text-uppercase"  type="submit">Registrate</button>
+                               
+                                    <div class="col-md-12">
+                                      
+                                    </div>
+                                    <hr class="my-4">
+
+                                    <div class="btn btn-lg btn-danger btn-block text-uppercase ">
+                                        @Html.ActionLink("Volver", "../Home/Index", null, new { @style = "color:#fff;" })
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+
+
+<script>
+  function validar() {
+    var fecha, mail, pass, pass2, expresion;
+    fecha = document.getElementById("FechaNacimiento").value;
+    mail = document.getElementById("Email").value;
+    pass = document.getElementById("Password").value;
+    pass2 = document.getElementById("Password2").value;
+    var hoy = new Date();
+
+    var cumpleanos = new Date(fecha);
+    var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+
+    if (fecha === "" || mail === "" || pass === "" || pass2 === "") {
+        alert("Debe llenar todos los campos");
+        return false;
+    }
+
+    else if (pass != pass2) {
+        alert("Las claves deben coincidir");
+        return false;
+    }
+    else if (edad < 18){
+        alert("menores de 18 no estan permitidos");
+        return false;
+    }
+
+};
+
+
+</script>

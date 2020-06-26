@@ -1,0 +1,262 @@
+﻿@model Proyecto.BaseDatos.Propuestas
+
+@{
+    Layout = "~/Views/Shared/propuestasLayout.cshtml";
+    var indice = 0;
+    var result = 0.0;
+    var count = 1;
+    @functions {
+        enum TiposDonacion
+        {
+            Monetario = 1,
+            Insumo = 2,
+            Hora = 3
+        }
+    }
+    ViewBag.Title = "Modificar propuesta";
+}
+@Styles.Render("~/Content/datepicker")
+@Scripts.Render("~/bundles/datepicker")
+@Scripts.Render("~/bundles/propuesta")
+
+
+
+
+<form class="needs-validation" novalidate action="/Propuesta/Modificar" method="post" enctype="multipart/form-data">
+    <input type="hidden" id="esModificar" value="1" />
+    <div class="card shadow mb-2">
+
+        <div class="card-header pl-5">
+            <h4 class="text-primary"><i class="fa fa-edit pt-2 mr-2" aria-hidden="true"></i>Modificar propuesta</h4>
+        </div>
+        <div class="card-body px-5">
+            <h5 class="card-title text-blue">Datos Generales</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Seleccione un tipo de donación y complete la informacion requerida.</h6>
+
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.Nombre)
+                    @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control bg-transparent pl-4", required = "required" })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "error" })
+                    <div class="invalid-feedback">
+                        Ingrese un nombre válido para la propuesta.
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.FechaFin)
+                    <span class="icon-input">
+                        <i class="fa fa-calendar pt-2" aria-hidden="true"></i>
+                    </span>
+                    @Html.EditorFor(model => model.FechaFin, new { htmlAttributes = new { @id = "inputFechaFin", @class = " datepicker form-control bg-transparent pl-4", @type = "text", autocomplete = "off", @value = Model.FechaFin.Date.ToString("dd/MM/yyyy") } })
+                    @Html.ValidationMessageFor(model => model.FechaFin, "", new { @class = "error" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.TelefonoContacto)
+                    @Html.TextBoxFor(model => model.TelefonoContacto, new { @class = "form-control bg-transparent pl-4", required = "required" })
+                    @Html.ValidationMessageFor(model => model.TelefonoContacto, "", new { @class = "error" })
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-12 mb-3">
+                    @Html.LabelFor(model => model.Descripcion)
+                    @Html.TextAreaFor(model => model.Descripcion, new { @class = "col-md-12 d-flex form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "error" })
+                    <div class="invalid-feedback">
+                        Ingrese una descripción válida para la propuesta.
+                    </div>
+                </div>
+
+            </div>
+
+            <br />
+
+            <div class="col-md-12">
+                <div class="card border-primary mb-3">
+
+                    @if (@Model.TipoDonacion == (int)TiposDonacion.Monetario)
+                    {
+                        <h5 class="font-weight-bold text-center pt-3 text-primary">Tipo de Propuesta | MONETARIA</h5>
+                        <hr />
+                        <div class="card-body text-primary py-4">
+
+                            @foreach (var a in @Model.PropuestasDonacionesMonetarias)
+                            {
+                                <div class='form-row d-flex justify-content-center mb-3'>
+                                    <div class="col-md-5 mb-3">
+                                        <label for="dinero" class="font-weight-bold">Dinero</label>
+                                        <span class="icon-input">
+                                            <i class="fa fa-usd pt-2"></i>
+                                        </span>
+                                        <input type="number" class="form-control bg-transparent pl-4 flechasOut" step="0.01" min="@Convert.ToDouble(@a.Dinero)" name="PropuestasDonacionesMonetarias[0].Dinero" value='@Convert.ToDouble(@a.Dinero)' required="required">
+                                        <div class="invalid-feedback">
+                                            Ingrese una cantidad válida. Debe ser mayor a la anterior.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 mb-3">
+                                        <label for="cbu" class="font-weight-bold">Número de CBU</label>
+                                        <input type="text" class="form-control flechasOut" name="PropuestasDonacionesMonetarias[0].CBU" maxlength="50" value="@a.CBU" required="required">
+                                        <div class="invalid-feedback">
+                                            Ingrese un CBU válido o alias alfanumérico, entre 6 a 22 caracteres.
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            }
+                        </div>
+                    }
+
+                    @if (@Model.TipoDonacion == (int)TiposDonacion.Insumo)
+                    {
+                        <h5 class="font-weight-bold text-center pt-3 text-success">Tipo de Propuesta | INSUMOS</h5>
+                        <hr /> <div class="card-body text-primary py-4">
+                            <div class="form-row d-flex justify-content-center mb-3">
+                                <div class="col-md-5">
+                                    <label for="item" class="font-weight-bold">Nombre del Item</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="item" class="font-weight-bold">Cantidad</label>
+                                </div>
+                                <br>
+                            </div>
+                            @foreach (var a in @Model.PropuestasDonacionesInsumos)
+                            {
+                                result++;
+
+                                <div class="form-row d-flex justify-content-center" id="itemInsumo[@indice]">
+                                    <div class="col-md-5  mb-4 mt-1" id="divItems[@indice]">
+                                        <input type="text" class="form-control bg-transparent pl-4" placeholder="Nombre item @result" name="PropuestasDonacionesInsumos[@indice].Nombre" value="@a.Nombre" required="required">
+                                    </div>
+
+                                    <div class="col-md-5  mb-4 mt-1" id="divDes[@indice]">
+                                        <input type="number" class="form-control bg-transparent pl-4" placeholder="Cantidad item @result" min="@a.Cantidad" name="PropuestasDonacionesInsumos[@indice].Cantidad" value=@a.Cantidad required="required">
+                                    </div>
+                                </div>
+                                indice++;
+                            }
+                            <div class="form-row  d-flex justify-content-center">
+                                <div class="col-md-10 mb-3">
+                                    <input class="btn btn-primary float-right" type="button" onclick="nuevoItem(@indice)" value="+ Agregar Item" />
+                                </div>
+                            </div>
+
+                        </div>
+
+                    }
+
+
+
+                    @if (@Model.TipoDonacion == (int)TiposDonacion.Hora)
+                    {
+                        <div class="text-blue text-uppercase text-center">Tipo de Propuesta<h5 class="font-weight-bold"> Horas de trabajo</h5></div>
+                        <div class="card-body py-4">
+
+                            @foreach (var a in @Model.PropuestasDonacionesHorasTrabajo)
+                            {
+                                <div class="form-row d-flex justify-content-center">
+                                    <div class="col-md-5 mb-3">
+                                        <label for="horas" class="font-weight-bold">Cantidad de horas</label>
+                                        <input type="number" class="form-control flechasOut" name="PropuestasDonacionesHorasTrabajo[0].CantidadHoras" pattern="[0-9]" value="@a.CantidadHoras" required="required">
+                                        <div class="invalid-feedback">
+                                            Ingrese una cantidad de horas válida.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5 mb-3">
+                                        <label for="horas" class="font-weight-bold">Seleccione una profesión</label>
+                                        @Html.DropDownList("PropuestasDonacionesHorasTrabajo[0].Profesion", ViewData["listaProfesiones"] as List<SelectListItem>, new { @id = "id_profesion", @class = "form-control" })
+
+                                    </div>
+                                </div>
+                                <div class="form-row d-flex justify-content-center mb-3">
+                                    <div class="col-md-5 mb-3"></div>
+                                    <div class="col-md-5">
+                                        <label class="font-weight-bold d-none" id="detalle">Detalle</label><br />
+                                        <input class="form-control d-none" type="text" id="otraProfesion" name="otraProfesion" placeholder="Especifique la profesion..." value="@ViewBag.OtraProfesion" />
+                                    </div>
+                                </div>
+
+                            }
+
+
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+            <hr />
+            <br />
+
+            <h5 class="card-title text-blue">Imagen</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Seleccione una imagen como carátula de la propuesta.</h6>
+
+            <div class="row d-flex justify-content-center">
+                <small class="d-block mb-2">Imagen actual</small>
+                <div class="col-md-12 d-flex justify-content-center mb-5">
+                    <a href="@Model.Foto" target="_blank">
+                        <img class="img-thumbnail input-sm img-size" src="@Model.Foto" alt="Foto" />
+                    </a>
+                </div>
+                <br />
+                <div class="mt-5 bg-primary rounded p-2 text-white">
+                    <input type="file" name="Foto" accept="image/png, image/jpeg" alt="FotoNueva">
+                    <input type="hidden" name="fotoVieja" value="@Model.Foto" />
+                </div>
+            </div>
+
+            <br />
+            <hr />
+            <br />
+
+            <h5 class="card-title text-blue">Contactos</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Compete dos referencias para dar veracidad a su propuesta.</h6>
+
+            <div class="row">
+                @{indice = 0; }
+                @foreach (var r in @Model.PropuestasReferencias)
+                {
+                    <div class="col-md-6">
+                        <small> # Referencia @count</small>
+                        <br />
+                        <label for="horas">Nombre</label>
+                        <input type="text" class="form-control" name="PropuestasReferencias[@indice].Nombre" value="@r.Nombre" required="required">
+                        <div class="invalid-feedback">
+                            Ingrese un nombre.
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <br />
+                        <label for="horas">Teléfono</label>
+                        <input type="number" class="form-control flechasOut" name="PropuestasReferencias[@indice].Telefono" value="@r.Telefono" required="required">
+                        <div class="invalid-feedback">
+                            Ingrese un teléfono.
+                        </div>
+                        <br />
+
+                    </div>
+
+                    count++;
+                    indice++;
+                }
+            </div>
+            <br />
+
+
+
+            <div class="container-fluid">
+                <hr />
+                <input type="hidden" name="TipoDonacion" value="@Model.TipoDonacion" />
+                <input type="hidden" name="idUsuarioCreador" value="@Model.IdUsuarioCreador" />
+                <input type="hidden" name="idPropuesta" value="@Model.IdPropuesta" />
+
+                <input class="boton boton-primary ml-2 mr-0 float-right mr-3" type="submit" value="Modificar propuesta" />
+                <a href="/Propuestas/Listar" class="boton boton-secondary float-right">Cancelar</a>
+            </div>
+        </div>
+    </div>
+</form>
+

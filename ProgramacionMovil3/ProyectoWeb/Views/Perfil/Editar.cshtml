@@ -1,0 +1,92 @@
+﻿@model Proyecto.BaseDatos.Usuarios
+
+@{
+    ViewBag.Title = "ModificarPerfil";
+    Layout = "~/Views/Shared/propuestasLayout.cshtml";
+}
+
+
+
+<form action="/Perfil/EditarPerfil/@Model.IdUsuario"   onsubmit="return validar2();" method="post">
+    <div class="card shadow mb-2">
+        
+            <div class="card-header pl-5">
+                <h3 class="text-primary"><i class="fa fa-edit pt-2 mr-2" aria-hidden="true"></i>Modificar Usuario</h3>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new {id="Nombre", @class = "form-control" , required = "required"} })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Apellido, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Apellido, new { htmlAttributes = new {id="Apellido", @class = "form-control" , required = "required"} })
+                    @Html.ValidationMessageFor(model => model.Apellido, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.FechaNacimiento, htmlAttributes: new { @class = "control-label col-md-2" })
+              
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FechaNacimiento, new { htmlAttributes = new {type="date", @class = "form-control", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.FechaNacimiento, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+       
+    
+            <div class="form-group">
+                <label for="FechaNacimiento">Foto:</label>
+                <div class="col-md-10">
+                   
+                    @Html.TextBoxFor(p => p.Foto, null, new { type = "file", @class = "input-file" , required = "required"})
+                    @Html.ValidationMessageFor(model => model.Foto, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button class="btn btn-primary btn-lg  ml-2 mr-0 mt-0 float-right mr-3" type="submit">Modificar Usuario</button>
+                    <a href="@Request.UrlReferrer.AbsolutePath" class="btn btn-secondary btn-lg float-right" type="button">Cancelar</a>
+                </div>
+            </div>
+        
+    </div>
+</form>
+
+
+
+<script>
+  function validar2() {
+    var fecha, mail, pass, pass2, expresion;
+    fecha = document.getElementById("FechaNacimiento").value;
+    nombre = document.getElementById("Nombre").value;
+    apellido= document.getElementById("Apellido").value;
+    pass2 = document.getElementById("Password2").value;
+    var hoy = new Date();
+
+    var cumpleanos = new Date(fecha);
+    var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+
+    if (fecha === "" || mail === "" || pass === "" || pass2 === "") {
+        alert("Debe llenar todos los campos");
+        return false;
+    }
+
+    else if (pass != pass2) {
+        alert("Las claves deben coincidir");
+        return false;
+    }
+    else if (edad < 18){
+        alert("menores de 18 no estan permitidos");
+        return false;
+    }
+
+};
+
+
+</script>

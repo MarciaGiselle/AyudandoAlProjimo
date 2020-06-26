@@ -1,0 +1,28 @@
+﻿@model Proyecto.ModelView.VM_Home
+
+@{
+    
+    ViewBag.Title = "Ayudando al prójimo";
+}
+
+
+@Html.Partial("pv_mensajes")
+
+
+
+@if (!ViewBag.SesionIniciada)
+{
+    Layout = "~/Views/Shared/anonimoLayout.cshtml";
+    @Html.Partial("pv_HomeGeneral")
+
+}
+@if (ViewBag.SesionIniciada)
+
+{
+    Layout = "~/Views/Shared/propuestasLayout.cshtml";
+    @Html.Partial("pv_HomeUsuario", Model)
+
+}
+
+
+

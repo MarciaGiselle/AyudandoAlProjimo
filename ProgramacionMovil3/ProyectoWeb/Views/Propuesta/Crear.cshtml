@@ -1,0 +1,233 @@
+﻿@model Proyecto.BaseDatos.Propuestas
+
+@{
+    Layout = "~/Views/Shared/propuestasLayout.cshtml";
+    var indice = 0;
+    ViewBag.Title = "Crear nueva propuesta";
+}
+@Html.Partial("pv_Mensajes")
+
+@Styles.Render("~/Content/datepicker")
+@Scripts.Render("~/bundles/datepicker")
+@Scripts.Render("~/bundles/propuesta")
+
+
+<form class="needs-validation" novalidate action="/Propuesta/Crear" method="post" enctype="multipart/form-data">
+
+    <div class="card py-1 px-2">
+        <div class="card-body mt-4 px-5">
+
+            <h4 class="text-blue font-weight-bold mb-3"><i class="fa fa-plus-circle pt-2 mr-2" aria-hidden="true"></i>Crear una nueva propuesta</h4>
+            <h6 class="card-subtitle text-muted">Complete la siguiente información para su propuesta.</h6>
+            <hr />
+            <h5 class="text-blue p-2">  Datos Generales</h5>
+            <div class="form-row mt-3">
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.Nombre)
+                    @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control bg-transparent pl-4", required = "required" })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "error" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.FechaFin)
+                    <span class="icon-input">
+                        <i class="fa fa-calendar pt-2" aria-hidden="true"></i>
+                    </span>
+                    @Html.TextBoxFor(model => model.FechaFin, new { type = "text", @class = "datepicker form-control bg-transparent pl-5 ", required = "required" })
+                    @Html.ValidationMessageFor(model => model.FechaFin, "", new { @class = "error" })
+                </div>
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.TelefonoContacto)
+                    @Html.TextBoxFor(model => model.TelefonoContacto, new { @class = "form-control bg-transparent pl-4", required = "required", minlenght = "6", maxlenght = "30" })
+                    @Html.ValidationMessageFor(model => model.TelefonoContacto, "", new { @class = "error" })
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-xl-12 mb-3">
+                    @Html.LabelFor(model => model.Descripcion)
+                    @Html.TextAreaFor(model => model.Descripcion, new { @class = "col-md-12 d-flex form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "error" })
+                </div>
+            </div>
+
+            <br />
+
+            <h5 class="card-title text-blue">Tipo de Donación</h5>
+            <h6 class="  card-subtitle mb-2 text-muted">Seleccione un tipo de donación y complete la informacion requerida.</h6>
+            @Html.ValidationMessageFor(model => model.TipoDonacion, "", new { @class = "error" })
+            <div class="rounded-divs mb-5 border border-primary mt-3">
+                <ul class="nav nav-pills mb-3 nav-fill border-bottom  py-4" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="monetaria" name="TipoDonacion" value="1" checked>
+                            <label class="custom-control-label text-blue font-weight-bold" for="monetaria">Monetaria</label>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="insumo" value="2" name="TipoDonacion">
+                            <label class="custom-control-label text-blue font-weight-bold" for="insumo">Insumos</label>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="trabajo" value="3" name="TipoDonacion">
+                            <label class="custom-control-label text-blue font-weight-bold" for="trabajo">Horas de trabajo</label>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class='tab-content' id='propuestaMonetaria'>
+                    <div class='form-row d-flex justify-content-center '>
+                        <div class="col-md-5 mb-3">
+                            <label class="font-weight-bold" for="dinero">Dinero</label>
+                            <span class="icon-input">
+                                <i class="fa fa-usd pt-2"></i>
+                            </span>
+                            <input type="number" step="0.01" class="form-control bg-transparent pl-4 monetaria flechasOut" name="PropuestasDonacionesMonetarias[0].Dinero" required>
+                            <div class="invalid-feedback">
+                                Ingrese un monto válido. Debe ser positivo, como máximo 18 caracteres.
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-5 mb-3">
+                            <label for="cbu" class="font-weight-bold">Número de CBU | Alias</label>
+                            <input type="text" id="cbu" class="form-control flechasOut monetaria" name="PropuestasDonacionesMonetarias[0].CBU" minlength="6" maxlength="50" pattern="[A-Za-z0-9]+" required>
+                            <div class="invalid-feedback" id="errorCbu">
+                                Ingrese un CBU válido o alias alfanumérico, entre 6 a 22 caracteres.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="tab-content" id="propuestaInsumos" hidden>
+                    <div class="form-row  d-flex justify-content-center">
+                        <div class="col-md-5 pl-4">
+                            <label class="font-weight-bold" for="item">Nombre del Item</label>
+                        </div>
+                        <div class="col-md-5">
+                            <label class="font-weight-bold" for="item">Cantidad</label>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="indice" value="@indice" />
+                    <div class="form-row  d-flex justify-content-center " id="itemInsumo">
+                        <div class="col-md-5 mb-3" id="divItems[0]">
+                            <input type="text" class="form-control bg-transparent pl-4 insumo" placeholder="Nombre item 1" name="PropuestasDonacionesInsumos[0].Nombre" maxlength="50" required>
+                            <div class="invalid-feedback">
+                                Debe completar al menos un item.
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 mb-3" id="divDes[0]">
+                            <input type="number" class="form-control bg-transparent pl-4 insumo" placeholder="Cantidad item 1" name="PropuestasDonacionesInsumos[0].Cantidad" min="1" required>
+                            <div class="invalid-feedback">
+                                Ingrese una cantidad válida.
+                            </div>
+                        </div>
+
+                        <br>
+
+                    </div>
+                    <div class="form-row  d-flex justify-content-center">
+                        <div class="col-md-10 mb-3">
+                            <input class="btn btn-primary float-right " type="button" onclick="nuevoItemCrear()" value="+ Agregar Item" />
+                        </div>
+                        <div class="col-md-10 mb-3">
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="tab-content" id="propuestaTrabajo" hidden>
+                    <div class="form-row  d-flex justify-content-center ">
+                        <div class="col-md-5 mb-3">
+                            <label class="font-weight-bold" for="horas">Cantidad de horas</label>
+                            <input type="number" class="form-control flechasOut trabajo" name="PropuestasDonacionesHorasTrabajo[0].CantidadHoras" pattern="[0-9]" required>
+                            <div class="invalid-feedback">
+                                Ingrese una cantidad de horas válida.
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 mb-3">
+                            <label class="font-weight-bold" for="horas">Seleccione una profesión</label>
+                            @Html.DropDownList("PropuestasDonacionesHorasTrabajo[0].Profesion", ViewData["listaProfesiones"] as List<SelectListItem>, new { @id = "id_profesion", @class = "form-control trabajo" })
+                        </div>
+                    </div>
+                    <div class="form-row d-flex justify-content-center mb-3">
+                        <div class="col-md-5 mb-3"></div>
+                        <div class="col-md-5">
+                            <label class="font-weight-bold d-none" id="detalle">Detalle</label><br />
+                            <input class="form-control d-none" type="text" id="otraProfesion" name="otraProfesion" placeholder="Especifique la profesion..." />
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+
+            <hr />
+            <br />
+
+            <h5 class="card-title text-blue">Imagen</h5>
+            <h6 class="card-subtitle mb-2 text-muted mb-3">Seleccione una imagen como carátula de la propuesta.</h6>
+            @Html.TextBoxFor(p => p.Foto, null, new { type = "file", @class = "input-file col-md-12 p-3", required = "required" })
+            @Html.ValidationMessageFor(model => model.Foto, "", new { @class = "error pl-3" })
+            <br />
+            <hr>
+
+            <h5 class="card-title text-blue">Contactos</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Compete dos referencias para dar veracidad a su propuesta.</h6>
+            <div class="row mt-3 mb-4">
+                <div class="col-md-6">
+                    <small> # Referencia 1</small>
+                    <br />
+                    <label for="PropuestasReferencias[0].Nombre">Nombre</label>
+                    <input type="text" class="form-control" name="PropuestasReferencias[0].Nombre" required maxlength="50">
+                    <div class="invalid-feedback">
+                        Ingrese un nombre válido. Máximo 50 caracteres.
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <br />
+                    <label for="PropuestasReferencias[0].Telefono">Teléfono</label>
+                    <input type="number" class="form-control flechasOut" name="PropuestasReferencias[0].Telefono" required pattern="[0-9]">
+                    <div class="invalid-feedback">
+                        Ingrese un teléfono válido.
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <small># Referencia 2</small>
+                    <br />
+                    <label for="PropuestasReferencias[1].Nombre">Nombre</label>
+                    <input type="text" class="form-control" name="PropuestasReferencias[1].Nombre" required maxlength="50">
+                    <div class="invalid-feedback">
+                        Ingrese un nombre válido. Máximo 50 caracteres.
+                    </div>
+                </div>
+                <br />
+                <hr />
+                <div class="col-md-6">
+                    <br />
+                    <label for="PropuestasReferencias[1].Telefono">Teléfono</label>
+                    <input type="number" class="form-control flechasOut" name="PropuestasReferencias[1].Telefono" required pattern="[0-9]">
+                    <div class="invalid-feedback">
+                        Ingrese un teléfono válido.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <hr />
+            <button class="ml-4 float-right mr-2 boton boton-primary" type="submit" id="registrar">Crear propuesta</button>
+            <button class="boton boton-secondary float-right" type="button">Cancelar</button>
+        </div>
+        <br />
+    </div>
+</form>

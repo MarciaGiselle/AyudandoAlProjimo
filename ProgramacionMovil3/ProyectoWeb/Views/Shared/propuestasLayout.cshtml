@@ -1,0 +1,50 @@
+﻿
+@{
+    Layout = "~/Views/Shared/baseLayout.cshtml";
+    ViewBag.Indice = 0;
+}
+
+
+
+@section encabezado{
+    @if (ViewBag.SesionIniciada)
+    {
+        if (ViewBag.EsAdmin != null && ViewBag.EsAdmin != false)
+        {
+            
+            @Html.Partial("pv_EncabezadoAdmin")
+
+        }
+        else
+        {
+            @Html.Partial("pv_EncabezadoLogueado")
+
+        }
+    }
+    else
+    {
+        @Html.Partial("pv_EncabezadoNoLogueado")
+    }
+}
+
+@RenderBody()
+
+@section footer{
+    @Html.Partial("pv_footer")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

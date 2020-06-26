@@ -1,0 +1,277 @@
+﻿@if ((ViewBag.DebeLoguearse != null && ViewBag.DebeLoguearse != false) ||
+    (ViewBag.InicioSesionCorrecto != null && ViewBag.InicioSesionCorrecto != false))
+{
+    <div class="row mx-0 justify-content-lg-between my-0 alert-dismissible fade show pr-0 align-items-center">
+        <div class="card-body px-2 pt-2 pb-1 mb-0 text-blue d-flex justify-content-around">
+            <div class="col-lg-8 col-12 mt-4 mb-0">
+                <div class="alert alert-primary row" role="alert">
+                    <div class="col-md-1">
+                        <i class="float-left d-flex fa fa-heart-o mr-3 fa-2x py-2"></i>
+                    </div>
+                    <div class="col-md-11">
+                        <strong> Bienvenido !</strong>
+                        <h6>@ViewBag.MensajeTemporal </h6>
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@if (ViewBag.NuevaPropuestaCreada != null && ViewBag.NuevaPropuestaCreada != false)
+{
+    <div class="row mx-0 justify-content-lg-between my-0 alert-dismissible fade show pr-0 align-items-center">
+        <div class="card-body px-2 pt-2 pb-1 mb-0 text-blue d-flex justify-content-around">
+            <div class="col-lg-8 col-12 mt-4 mb-0">
+                <div class="alert alert-primary row" role="alert">
+                    <div class="col-md-1">
+                        <i class="float-left d-flex fa fa-heart-o mr-3 fa-2x py-2"></i>
+                    </div>
+                    <div class="col-md-11">
+                        <strong> Excelente !</strong>
+                        <h6>@ViewBag.MensajeExitoso</h6>
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@if ((ViewBag.ModificacionInvalida != null && ViewBag.ModificacionInvalida != false) ||
+    (ViewBag.YaHayUnaSesionIniciada != null && ViewBag.YaHayUnaSesionIniciada != false))
+{
+    <div class="row mx-0 justify-content-lg-between my-0 alert-dismissible fade show pr-0 align-items-center">
+        <div class="card-body px-2 pt-2 pb-1 mb-0 text-blue d-flex justify-content-around">
+            <div class="col-lg-8 col-12 mt-4 mb-0">
+                <div class="alert alert-warning row" role="alert">
+                    <div class="col-md-1">
+                        <i class="float-left d-flex fa fa-heart-o mr-3 fa-2x py-2"></i>
+                    </div>
+                    <div class="col-md-11">
+                        <strong>Ha ocurrido un resultado inesperado.</strong>
+                        <h6>@ViewBag.MensajeError</h6>
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+@if (ViewBag.ErrorInternoEnElServidor != null && ViewBag.ErrorInternoEnElServidor != false)
+{
+    <div class="row mx-0 justify-content-lg-between my-0 alert-dismissible fade show pr-0 align-items-center">
+        <div class="card-body px-2 pt-2 pb-1 mb-0 text-blue d-flex justify-content-around">
+            <div class="col-lg-8 col-12 mt-4 mb-0">
+                <div class="alert alert-danger row" role="alert">
+                    <div class="col-md-1">
+                        <i class="float-left d-flex fa fa-bug mr-3 fa-2x py-2"></i>
+                    </div>
+                    <div class="col-md-11">
+                        <strong>Ha ocurrido un error.</strong>
+                        <h6>@ViewBag.MensajeError</h6>
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (ViewBag.NoPoseeLosPermisos != null && ViewBag.NoPoseeLosPermisos != false)
+{
+    <div class="row mx-0 justify-content-lg-between my-0 alert-dismissible fade show pr-0 align-items-center">
+        <div class="card-body px-2 pt-2 pb-1 mb-0 text-blue d-flex justify-content-around">
+            <div class="col-lg-8 col-12 mt-4 mb-0">
+                <div class="alert alert-danger row" role="alert">
+                    <div class="col-md-1">
+                        <i class="float-left d-flex fa fa-exclamation-circle mr-3 fa-2x py-2"></i>
+                    </div>
+                    <div class="col-md-11">
+                        <strong>Ha ocurrido un error.</strong>
+                        <h6>@ViewBag.MensajeError</h6>
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (ViewBag.EstaExcedido != null && ViewBag.EstaExcedido != false)
+{
+    <div class="row mx-0 justify-content-lg-between my-0 alert-dismissible fade show pr-0 align-items-center">
+        <div class="card-body px-2 pt-2 pb-1 mb-0 text-blue d-flex justify-content-around">
+            <div class="col-lg-8 col-12 mt-4 mb-0">
+                <div class="alert alert-warning row" role="alert">
+                    <div class="col-md-1">
+                        <i class="float-left d-flex fa fa-exclamation-circle mr-3 fa-2x py-2"></i>
+                    </div>
+                    <div class="col-md-11">
+                        <strong>Ha ocurrido un resultado inesperado.</strong>
+                        <h6>@ViewBag.MensajeError</h6>
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@if (ViewBag.NoHayResultadosParaLaBusqueda != null && ViewBag.NoHayResultadosParaLaBusqueda != false)
+{
+    <div class="row mx-0 justify-content-lg-between my-0 alert-dismissible fade show pr-0 align-items-center">
+        <div class="card-body px-2 pt-2 pb-1 mb-0 text-blue d-flex justify-content-around">
+            <div class="col-lg-8 col-12 mt-4 mb-0">
+                <div class="alert alert-warning row" role="alert">
+                    <div class="col-md-1">
+                        <i class="float-left d-flex fa fa-heart-o mr-3 fa-2x py-2"></i>
+                    </div>
+                    <div class="col-md-11">
+                        <strong>Intente nuevamente. </strong>
+                        <h6> @ViewBag.MensajeNoHayResultados </h6>
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+@*Esta es la ultima version*@
+@if (ViewBag.NoHayPropuestasActivas != null && ViewBag.NoHayPropuestasActivas != false)
+{
+    <div class="row mx-0 justify-content-lg-between my-0 alert-dismissible fade show pr-0 align-items-center">
+        <div class="card-body px-2 pt-2 pb-1 mb-0 text-blue d-flex justify-content-around">
+            <div class="col-lg-8 col-12 mt-4 mb-0">
+                <div class="alert alert-primary row" role="alert">
+                    <div class="col-md-1">
+                        <i class="float-left d-flex fa fa-heart-o mr-3 fa-2x py-2"></i>
+                    </div>
+                    <div class="col-md-11">
+                        <strong> No hay propuestas Activas.<a href="/Propuestas/Crear"> <i class="fa fa-heart mr-2"></i>Crear Propuesta<i class="fa fa-heart ml-2"></i></a> </strong>
+                        <h6>@ViewBag.MensajeTemporal </h6>
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@if (ViewBag.ModificacionExitosa != null && ViewBag.ModificacionExitosa != false)
+{
+    <div class="row mx-0 justify-content-lg-between my-0 alert-dismissible fade show pr-0 align-items-center">
+        <div class="card-body px-2 pt-2 pb-1 mb-0 text-blue d-flex justify-content-around">
+            <div class="col-lg-8 col-12 mt-4 mb-0">
+                <div class="alert alert-primary row" role="alert">
+                    <div class="col-md-1">
+                        <i class="float-left d-flex fa fa-heart-o mr-3 fa-2x py-2"></i>
+                    </div>
+                    <div class="col-md-11">
+                        <strong> Muy bien !</strong>
+                        <h6>@ViewBag.ModificacionExitosaMensaje </h6>
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+@if (ViewBag.NoEsPosibleActivar != null && ViewBag.NoEsPosibleActivar != false)
+{
+    <div class="row mx-0 justify-content-lg-between my-0 alert-dismissible fade show pr-0 align-items-center">
+        <div class="card-body px-2 pt-2 pb-1 mb-0 text-blue d-flex justify-content-around">
+            <div class="col-lg-8 col-12 mt-4 mb-0">
+                <div class="alert alert-warning row" role="alert">
+                    <div class="col-md-1">
+                        <i class="float-left d-flex fa fa-heart-o mr-3 fa-2x py-2"></i>
+                    </div>
+                    <div class="col-md-11">
+                        <strong>Advertencia. </strong>
+                        <h6> @ViewBag.NoEsPosibleActivarMensaje </h6>
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@if (ViewBag.ActivacionCorrecta != null && ViewBag.ActivacionCorrecta != false)
+{
+    <div class="row mx-0 justify-content-lg-between my-0 alert-dismissible fade show pr-0 align-items-center">
+        <div class="card-body px-2 pt-2 pb-1 mb-0 text-blue d-flex justify-content-around">
+            <div class="col-lg-8 col-12 mt-4 mb-0">
+                <div class="alert alert-primary row" role="alert">
+                    <div class="col-md-1">
+                        <i class="float-left d-flex fa fa-heart-o mr-3 fa-2x py-2"></i>
+                    </div>
+                    <div class="col-md-11">
+                        <strong> Genial !</strong>
+                        <h6>@ViewBag.ActivadoMensaje</h6>
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@if (ViewBag.NoEsPosibleModificar != null && ViewBag.NoEsPosibleModificar != false)
+{
+    <div class="row mx-0 justify-content-lg-between my-0 alert-dismissible fade show pr-0 align-items-center">
+        <div class="card-body px-2 pt-2 pb-1 mb-0 text-blue d-flex justify-content-around">
+            <div class="col-lg-8 col-12 mt-4 mb-0">
+                <div class="alert alert-danger row" role="alert">
+                    <div class="col-md-1">
+                        <i class="float-left d-flex fa fa-exclamation-circle mr-3 fa-2x py-2"></i>
+                    </div>
+                    <div class="col-md-11">
+                        <strong>Ha ocurrido un error.</strong>
+                        <h6>@ViewBag.NoEsPosibleModificarMensaje</h6>
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

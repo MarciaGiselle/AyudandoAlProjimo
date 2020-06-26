@@ -1,0 +1,85 @@
+﻿@using Proyecto.ModelView
+@using Proyecto.BaseDatos
+@model RealizarDonacionMV
+@{
+
+    var tipo = ViewBag.tipo;
+    var suma = 0;
+    var i = 0;
+}
+
+<div class="col-lg-12 mb-2">
+    <div class="card">
+        <div class="card-body">
+
+            @using (Html.BeginForm("donar", "Donacion", FormMethod.Post,new {id="FormI" }))
+            {
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Selecciona</th>
+                            <th>Producto</th>
+                            <th>Cantidad a recaudar</th>
+                            <th>Nos Faltan</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (PropuestasDonacionesInsumos p in Model.Propuesta.PropuestasDonacionesInsumos)
+                        {
+                            foreach (DonacionesInsumosMetadatos d in Model.TodasDonacionesInsumos)
+                            {
+                                foreach (DonacionesInsumos donP in p.DonacionesInsumos)
+                                {
+                                    suma += donP.Cantidad;
+                                }
+
+                                double tenemos = p.Cantidad - suma;
+                                suma = 0;
+                                <tr>
+                                    <td>
+                                        @if (tenemos <= 0)
+                                        {
+                                            <input type="checkbox" id="check@(i)" class="checkboxD" onclick="activarCasilla(@i)" disabled />
+                                        }
+                                        else
+                                        {<input type="checkbox" id="check@(i)" class="checkboxD" onclick="activarCasilla(@i)" />}
+                                </td>
+                                <td>@p.Nombre</td>
+                                <td>@p.Cantidad</td>
+                                <td id="falta">@tenemos</td>
+
+
+
+                                @Html.HiddenFor(m => m.TodasDonacionesInsumos[i].IdUsuario, new { @Value = ViewBag.ID })
+                                @Html.HiddenFor(m => m.Propuesta.IdPropuesta, new { @Value = Model.Propuesta.IdPropuesta })
+                                @Html.HiddenFor(m => m.Propuesta.TipoDonacion, new { @Value = Model.Propuesta.TipoDonacion })
+                                @Html.HiddenFor(m => m.TodasDonacionesInsumos[i].IdPropuestaDonacionInsumo, new { @Value = p.IdPropuestaDonacionInsumo })
+                                <td>@Html.TextBoxFor(m => m.TodasDonacionesInsumos[i].Cantidad, new { id = i, @disabled = "", @Value = "" })</td>
+                                <td></td>
+                            </tr>
+
+
+                            break;
+                        }
+                        <p>@Html.ValidationMessageFor(m => m.TodasDonacionesInsumos[i].Cantidad, "", new { @class = "text-danger" })</p>
+                        i++;
+                    }
+
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div id="TextAlMenos" class="col-lg-8">
+
+                    </div>
+                    <div class="col-lg-4">
+
+                        <button type="reset" class="btn btn-secondary">Borrar</button>
+                        <button type="submit" class="btn btn-primary" onclick=" validarchecks()" name ="BTN" value="Insumo">Enviar</button>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

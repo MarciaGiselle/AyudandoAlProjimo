@@ -1,0 +1,108 @@
+﻿@model Proyecto.ModelView.VM_Home
+@{
+    var estiloInsumo = "fondo fondo-insumos";
+    var estiloMonetaria = "fondo fondo-monetaria";
+    var estiloHorasDeTrabajo = "fondo fondo-trabajo";
+
+    var insumo = "INSUMOS";
+    var horas = "HORAS DE TRABAJO";
+    var monetaria = "MONETARIA";
+
+}
+
+@functions {
+    enum TiposDonacion
+    {
+        Monetario = 1,
+        Insumo = 2,
+        Hora = 3
+    }
+}
+<script>
+    $(document).ready(function () {
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+
+
+    });
+</script>
+
+<div class="row mx-0 justify-content-lg-between">
+    <div class="card-body px-4 pt-2 pb-1 mb-0">
+        @if (Model.PropuestasMasValoradas.Count > 0)
+        {
+            <div class="accordion" id="accordionFiltro">
+                <div class="card shadow mb-4" id="headingOne">
+                    <a class="pl-4 d-block card-header bg-primary py-3 mb-0 shadow" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <h4 class="text-center text-light mb-1"><i class="fa fa-smile-o pt-2 mr-2" aria-hidden="true"></i>Propuestas Mas Valoradas</h4>
+                    </a>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionFiltro">
+                        <div class="card-body">
+                            <div class="row  d-flex justify-content-around">
+
+                                @foreach (var a in Model.PropuestasMasValoradas)
+                                {
+
+                                    <div class="card rounded text-center mb-2 mx-2 size-22r @((a.TipoDonacion == (int)TiposDonacion.Insumo) ? estiloInsumo :
+                                                    (a.TipoDonacion == (int)TiposDonacion.Hora) ? estiloHorasDeTrabajo :
+                                                    estiloMonetaria)">
+
+                                        <div class="card-body px-2 pt-2 pb-1 mb-0 ">
+                                            <div class="row align-items-center">
+                                                <div class=" col-md-8">
+                                                    <label class="float-left mb-0 ">
+                                                        @((a.TipoDonacion == (int)TiposDonacion.Insumo) ? insumo :
+                                                        (a.TipoDonacion == (int)TiposDonacion.Hora) ? horas : monetaria)
+                                                    </label><br />
+
+                                                </div>
+                                            </div>
+                                            <hr class="white" />
+
+                                            <div class="row mx-auto">
+                                                <div class="align-top text-center">
+                                                    <label class="font-weight-bold pl-2"> Inicio</label>|  @a.FechaCreacion.ToString(" dd/MM/yyyy")
+                                                    <label class="font-weight-bold pl-2">Fin</label>| @a.FechaFin.ToString(" dd/MM/yyyy")
+
+                                                </div>
+                                            </div>
+
+                                            <div class="row my-3">
+                                                <div class="col-md-12 mb-1">
+                                                    <div class="col-md-12 objetfit text-black-50 center ">
+                                                        <img class="cortar img-size rounded-circle" src="@a.Foto" alt="Foto" />
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row my-3">
+                                                <div class="rounded-divs fondo fondo-general">
+                                                    <h5 class="mb-0"> <i class="fa fa-heart px-1"></i> @a.Nombre </h5>
+                                                </div>
+                                                <div class="col-md-12 px-4 cortar-texto">
+                                                    @a.Descripcion
+                                                </div>
+                                            </div>
+
+
+                                            <label>@((!a.Valoracion.Equals(null)) ? "Porcentaje de valoración: " + a.Valoracion.ToString() + "%" : "Aún no posee valoraciones")</label>
+
+
+
+
+
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+       
+    </div>
+</div>

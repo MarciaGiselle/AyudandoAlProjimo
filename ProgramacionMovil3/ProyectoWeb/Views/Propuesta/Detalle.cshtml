@@ -1,0 +1,121 @@
+﻿@model Proyecto.BaseDatos.Propuestas
+
+@{
+    Layout = "~/Views/Shared/propuestasLayout.cshtml";
+    ViewBag.Title = "Detalle";
+
+}
+
+@functions {
+    enum TiposDonacion
+    {
+        Monetario = 1,
+        Insumo = 2,
+        Hora = 3
+    }
+}
+
+@Html.Partial("pv_Mensajes")
+
+<div class="card py-1 px-2 mb-3">
+    <div class="card-body mt-4 px-5">
+        <div class="row mx-0 py-1">
+            <div class="p-1 col-md-7 d-inline mt-2">
+                <h4 class="text-primary  font-weight-bold mb-3"><i class="fa fa-info-circle pt-2 mr-2" aria-hidden="true"></i>Detalle propuesta | <b class="text-blue"> @Model.Nombre</b></h4>
+            </div>
+            <hr />
+
+            <div class="p-1 col-md-5  @ViewBag.Visibilidad">
+                <a class="circulo circulo-danger text-decoration-none float-right " href="/Denuncia/DenunciarPropuesta/@Model.IdPropuesta" data-toggle="tooltip" title="Denunciar"><i class=" fa fa-exclamation-circle fa-2x" onclick="Valorar(@Model.IdPropuesta,true)"></i></a>
+
+                @if (Model.PropuestasValoraciones.Count == 0)
+                {
+                    <a class="circulo circulo-light text-decoration-none float-right mr-3" data-toggle="tooltip" title="Valorar"><i class="fa fa-thumbs-up fa-2x" onclick="Valorar(@Model.IdPropuesta,true)"></i></a>
+                }
+                @switch (ViewBag.MeGusta)
+                {
+                    case true:
+                        <a class="circulo circulo-light  text-decoration-none float-right mr-3" data-toggle="tooltip" title="Valorar"><i onclick="Valorar(@Model.IdPropuesta,false)" style="cursor:pointer; color:green" class="fa fa-thumbs-up text-right fa-2x"></i></a>
+
+
+                        break;
+                    case false:
+                        <a class="circulo circulo-light text-decoration-none float-right mr-3" data-toggle="tooltip" title="Valorar"><i onclick="Valorar(@Model.IdPropuesta,true)" style="cursor:pointer;color:red" class="fa fa-thumbs-down text-right fa-2x"></i></a>
+
+
+                        break;
+                }
+
+                <a class="circulo circulo-primary text-decoration-none float-right mr-3" href="/Donacion/RealizarDonacion/@Model.IdPropuesta" data-toggle="tooltip" title="Donar"><i class="fa fa-heart fa-2x"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class=" card @ViewBag.Estilo px-5 pt-5 pb-3 mb-0 rounded-bottom">
+        <div class="row">
+            <div class="col-md-3 objetfit text-black-50 center mx-auto">
+                <img class="cortar img-size rounded-circle" src="@Model.Foto" alt="Foto" />
+                <br />
+                <br />
+                <div class="mt-2 ">
+                    <h6 class="text-blue font-weight-bold"><i class=" fa fa-user-circle mr-3"></i> @Model.Usuarios.Nombre  @Model.Usuarios.Apellido </h6>
+                    <h4 class="text-blue font-weight-bold"><i class=" fa fa-phone mr-3"></i>@Model.TelefonoContacto</h4>
+                </div>
+            </div>
+
+            <div class="col-sm-9 descripcion">
+                <div class="d-flex float-right text-muted align-top ">
+                    <label class="font-weight-bold pl-2"> Inicio</label>|  @Model.FechaCreacion
+                    <label class="font-weight-bold pl-2">Fin</label>|  @Model.FechaFin
+                </div>
+
+                <h5 class="card-title font-weight-bold mb-0">@Model.Nombre</h5>
+                <hr />
+                <p class="text-uppercase text-muted"><b>CLASIFICACION |  </b>  @ViewBag.Tipo</p>
+
+
+                <p class="card-subtitle mb-2 font-italic descripcion"><i class="fa fa-comment text-white p-2"></i>@Model.Descripcion</p>
+
+
+            </div>
+        </div>
+        <div class="row pt-2 mb-0">
+            <div class="col-md-3"></div>
+            <div class="col-md-9 descripcion d-inline-flex">
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+@switch (@Model.TipoDonacion)
+{
+    case (int)TiposDonacion.Monetario:
+        @Html.Partial("pv_DetalleMonetaria", Model)
+        break;
+    case (int)TiposDonacion.Insumo:
+        @Html.Partial("pv_DetalleInsumos", Model)
+        break;
+    case (int)TiposDonacion.Hora:
+        @Html.Partial("pv_DetalleHorasTrabajo", Model)
+        break;
+}
+
+<script>
+
+    function Valorar(IdPropuesta, valoracion) {
+        $.ajax({
+            type: 'POST',
+            url: '../../Home/Valorar/',
+            data: { IdPropuesta: IdPropuesta, valoracion: valoracion },
+            success: function (Response) {
+                window.location.reload(true);
+            },
+            error: function () {
+                console.log("Error al Valorar")
+            }
+        });
+    }
+
+</script>

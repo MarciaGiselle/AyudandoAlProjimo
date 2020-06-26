@@ -1,0 +1,59 @@
+﻿@using Proyecto.BaseDatos
+@using Proyecto.ModelView
+@model DenunciarPropuestaMV
+@{
+    ViewBag.Title = "DenunciarPropuesta";
+    Layout = "~/Views/Shared/propuestasLayout.cshtml";
+    List<MotivoDenuncia> listamotivos = Model.Motivos;
+}
+
+<div class="card shadow mb-2 mt-4">
+    <div class="card bg-secondary text-white">
+        <div class="card-body"><h3>Denunciar Propuesta</h3></div>
+    </div>
+    <div class="card-body p-5">
+        <h4 class="card-title">@Model.Propuesta.Nombre</h4>
+        <hr />
+        <div class="form-row">
+            <div class="col-md-4 mb-3 row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8 objetfit"><img class="cortar img-size rounded-circle" src="@Model.Propuesta.Foto" alt="Foto" /></div>
+                <div class="col-md-2"></div>
+            </div>
+
+            <div class="col-md-8 mb-3">
+                <h5>Descripcion:</h5>
+                <article>@Model.Propuesta.Descripcion</article>
+            </div>
+        </div>
+        <h3>Cual es el problema?</h3>
+        <h5>selecione un motivo y rellene la caja de comentarios</h5>
+        @using (Html.BeginForm("RegistrarDenuncia", "Denuncia", FormMethod.Post))
+        {
+            @Html.HiddenFor(m => m.Denuncia.IdUsuario,new { @Value=ViewBag.Id})
+            @Html.HiddenFor(m => m.Denuncia.IdPropuesta, new { @Value = Model.Propuesta.IdPropuesta })
+            <div class="form-row">
+                <div class="col-lg-6">
+                    @Html.Label("Motivo:")
+                    @Html.DropDownListFor(m => m.Denuncia.IdMotivo, new SelectList(listamotivos, "IdMotivoDenuncia", "Descripcion", Model.Denuncia.IdMotivo),"-- Seleciones Motivo --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Denuncia.IdMotivo, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="col-lg-6">
+                    @Html.Label("Comentario:")
+                    @Html.TextAreaFor(m => m.Denuncia.Comentarios, new { @class = "form-control", @rows = "6", @cols = "30" })
+                    @Html.ValidationMessageFor(m => m.Denuncia.Comentarios,"", new { @class = "text-danger" })
+                </div>
+
+            </div>
+            <br />
+            <button class="boton boton-primary btn-lg  ml-2 mr-0 float-right mr-3" type="submit">Confirmar</button>
+            <button class="boton boton-secondary btn-lg float-right" type="submit">Cancelar</button>
+            
+        }
+
+    </div>
+
+
+</div>
+

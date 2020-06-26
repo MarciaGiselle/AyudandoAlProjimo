@@ -1,0 +1,79 @@
+﻿@using Proyecto.ModelView
+@using Proyecto.BaseDatos
+@model RealizarDonacionMV
+@{
+
+    ViewBag.Title = "Donacion Monetaria";
+    var tipo = ViewBag.tipo;
+    var suma = 0;
+    var i = 0;
+}
+
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-12 mb-2">
+                    <div class="card border-info">
+                        <div class="card-body">
+                            <h4>Tenemos que Recaudar: @Model.Propuesta.PropuestasDonacionesMonetarias.First().Dinero $</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-2">
+                    <div class="card border-primary">
+                        <div class="card-body">
+                            <h5 class="card-title">Llevamos Recaudado</h5>
+                            @foreach (DonacionesMonetarias l in Model.Propuesta.PropuestasDonacionesMonetarias.First().DonacionesMonetarias)
+                            {
+                                suma += (Int32)l.Dinero;
+                            }
+                            <h2>@suma $</h2>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card border-danger">
+                        <div class="card-body">
+                            <h5 class="card-title">Nos Falta</h5>
+                            <h2>@(Model.Propuesta.PropuestasDonacionesMonetarias.First().Dinero - suma) $</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                                @using (Html.BeginForm("Donar", "Donacion", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                                {
+                                    @Html.HiddenFor(m=>m.DonacionMonetaria.IdUsuario,new { @Value=ViewBag.ID})
+                                    @Html.HiddenFor(m => m.Propuesta.IdPropuesta, new { @Value = Model.Propuesta.IdPropuesta })
+                                    @Html.HiddenFor(m => m.Propuesta.TipoDonacion, new { @Value = Model.Propuesta.TipoDonacion })
+                                    @Html.HiddenFor(m => m.DonacionMonetaria.IdPropuestaDonacionMonetaria, new { @Value = Model.Propuesta.PropuestasDonacionesMonetarias.First().IdPropuestaDonacionMonetaria })
+                                    <div class="form-group row">
+                                        @Html.Label("Monto", new { @class = "col-sm-2 col-form-label" })
+                                        <div class="col-sm-10">
+                                            @Html.TextBoxFor(m => m.DonacionMonetaria.Dinero, "Number", new { @class = "form-control flechasOut", @Value="", @type = "number" ,@Step="0.01"})
+                                            @Html.ValidationMessageFor(m => m.DonacionMonetaria.Dinero, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        @Html.Label("Comprobante", new { @class = "col-sm-12 col-form-label" })
+                                        <br />
+                                        <br />
+                                        <div class="col-sm-12">
+                                            @Html.TextBoxFor(m => m.DonacionMonetaria.ArchivoTransferencia, "file", new { @type = "file" })
+                                            @Html.ValidationMessageFor(m => m.DonacionMonetaria.ArchivoTransferencia, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+
+                                    <div>
+                                        <button type="submit" class="btn btn-lg btn-primary btn-block" name="BTN" value="Monetario">Confirmar Donacion</button>
+                                    </div>
+                                }
+                            </div>
+            </div>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
